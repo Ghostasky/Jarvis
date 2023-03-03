@@ -1,17 +1,13 @@
+# -*- coding: UTF-8 -*- 
 import argparse
 import art
 import openai
 import datetime
 import os
+import sys
+from getKey import getKeyFromConfig
 
-parser = argparse.ArgumentParser(description='Say hello')
-parser.add_argument('name', help='Name to greet')
-parser.add_argument('--loud', action='store_true', help='Make the greeting loud')
 
-openai.api_key = ""
-messageContent = "You are ChatGPT, a large language model trained by OpenAI. Answer as concisely as possible. Knowledge cutoff: "+str(datetime.datetime.now())[0:10]+" Current date: "+str(datetime.datetime.now())[0:10]
-messages = [{"role": "system", "content": messageContent}]
-filePath= "./"
 
 def sendMessage(messageLog):
     response = openai.ChatCompletion.create(
@@ -39,6 +35,16 @@ def getInput():
     print("[*]Has been sent.\n")
     return '\n'.join(lines)
     pass
+
+
+
+
+openai.api_key = getKeyFromConfig()
+messageContent = "You are ChatGPT, a large language model trained by OpenAI. Answer as concisely as possible. Knowledge cutoff: "+str(datetime.datetime.now())[0:10]+" Current date: "+str(datetime.datetime.now())[0:10]
+messages = [{"role": "system", "content": messageContent}]
+filePath= "./"
+
+
 def main():
     Art=art.text2art("jarvis","rand")
     print(Art)
