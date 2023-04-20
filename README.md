@@ -10,11 +10,11 @@
 
 ## 安装
 
-直接pyinstaller打包放到任意盘的Jarvis目录，将`Jarvis.exe`所在目录添加到环境变量即可。
+使用pip直接安装即可whl即可
 
 ## 使用
 
-第一次运行时要求输入`API key`，会保存到`config.txt`文件中。
+第一次运行时要求输入`API key`，会保存到`config.txt`文件中，改文件位于`site-packages\Jarvis\`文件夹下。
 
 正常使用：输入，按两次回车发送。
 
@@ -24,10 +24,11 @@
 
 
 
-
-
 ## 待解决
 
-- 日志问题
 - 各参数待更新
 - release
+
+## 已解决
+
+- 日志问题。日志位于`User\[username]\Jarivs_log\`目录中，命名方式为：`2023-xx-xx.txt`
