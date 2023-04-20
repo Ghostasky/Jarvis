@@ -14,7 +14,7 @@
 
 ## 使用
 
-第一次运行时要求输入`API key`，会保存到`config.txt`文件中，改文件位于`site-packages\Jarvis\`文件夹下。
+第一次运行时要求输入`API key`，会保存到`config.txt`文件中，该文件位于`site-packages\Jarvis\`文件夹下。
 
 正常使用：输入，按两次回车发送。
 
