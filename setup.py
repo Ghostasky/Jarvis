@@ -2,11 +2,11 @@ from setuptools import setup
 
 setup(
     name="Jarvis-gpt",
-    version="0.3",
+    version="0.1",
     packages=["Jarvis"],
     author="Ghostasky",
     author_email="ghostasky@foxmail.com",
-    platforms='python3',  # 项目支持的平台
+    platforms='python3',
     description='这是一个命令行的gpt',
     entry_points={
         "console_scripts": [
