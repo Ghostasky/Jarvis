@@ -6,10 +6,15 @@ import datetime
 import os
 import sys
 from Jarvis.getKey import getKeyFromConfig
+# from Jarvis.log import *
 from distutils.sysconfig import get_python_lib
 import getpass
 # import Jarvis.role
 import role
+from log import writeLogInfo
+
+global_role = role.role_1
+
 def sendMessage(messageLog):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -43,7 +48,7 @@ def getInput():
 
 openai.api_key = getKeyFromConfig()
 # messages = [{"role": "system", "content": Jarvis.role.role_1}]
-messages = [{"role": "system", "content": role.role_1}]
+messages = [{"role": "system", "content": global_role}]
 filePath= r"C:/Users/" + getpass.getuser()+"/Jarvis_log/"
 
 
@@ -59,35 +64,23 @@ def mainLoop():
     try:
         while True:
             user_input = getInput()
-            
-            fileName = str(datetime.datetime.now())[0:10]+'.txt'
-            pathAndFile = filePath+fileName
-            writeLogInfo(pathAndFile,user_input,"Q")
+            if user_input[0] =='/':
+                changerole(user_input)
+            else:
+                fileName = str(datetime.datetime.now())[0:10]+'.txt'
+                pathAndFile = filePath+fileName
+                writeLogInfo(pathAndFile,user_input,"Q")
 
-            messages.append({"role": "user", "content": user_input})
-            response = sendMessage(messages)
+                messages.append({"role": "user", "content": user_input})
+                response = sendMessage(messages)
 
-            writeLogInfo(pathAndFile,response,"A")
-
-            print(f"\033[34mJarvis>\033[0m {response}\n")
+                writeLogInfo(pathAndFile,response,"A")
+                print(f"\033[34mJarvis>\033[0m {response}\n")
 
     except (KeyboardInterrupt, EOFError) as e:
         print("\nBye Bye~")
         os._exit(0)
 
-def writeLogInfo(filePath,Input, QorA):
-    if QorA == "Q":
-        with open(filePath,"a+",encoding="utf-8") as file:
-            now_time = str(datetime.datetime.now())
-            file.write(str(now_time)[:-7]+"| Q: "+Input+"\n")
-            file.close()
-        pass
-    elif QorA  == "A":
-        with open(filePath,"a+",encoding="utf-8") as file:
-            now_time = str(datetime.datetime.now())
-            file.writelines(str(now_time)[:-7]+"| A: "+Input+"\n")
-            file.close()
-        pass
 
 
 def showHelpInfo():
@@ -98,11 +91,29 @@ def showHelpInfo():
         print("1. You are ChatGPT, a large language model....")
         print("2. bypass openai ")
 
-def changerole():
+def changerole(user_input):
+    # match user_input[]
     pass
 def test(a):
     if a[0]=='/':
-        print("change role")
+        match a[1:]:
+            case "aaab":
+                global_role = role.role_2
+            case "bbbc":
+                global_role = role.role_1
+            case _:
+                global_role = "no this role"
+        while global_role == "no this role":
+            print(global_role+", re inpuut")
+            match a[1:]:
+                case "aaab":
+                    global_role = role.role_2
+                case "bbbc":
+                    global_role = role.role_1
+                case _:
+                    global_role = "no this role"
+                # pass
+        print(global_role)
     pass
 def main():
     a = getInput()
