@@ -5,15 +5,25 @@ import openai
 import datetime
 import os
 import sys
-from Jarvis.getKey import getKeyFromConfig
-# from Jarvis.log import *
+
 from distutils.sysconfig import get_python_lib
 import getpass
-# import Jarvis.role
-import role
-from log import writeLogInfo
 
-global_role = role.role_1
+
+
+# 本地
+# from log import writeLogInfo
+# from command_ import command
+# from allData import alldata
+
+
+# 发布版
+from Jarvis.getKey import getKeyFromConfig
+from Jarvis.log import writeLogInfo
+from Jarvis.command_ import alldata
+from Jarvis.command_ import command
+# from Jarvis.allData import alldata
+
 
 def sendMessage(messageLog):
     response = openai.ChatCompletion.create(
@@ -35,9 +45,9 @@ def getInput():
         if not a:
             break
         # 下面用来写其他命令，之后再说
-        if '/' == line[0]:
-            aaaa = line[0].split()
-            return aaaa
+        # if '/' == line[0]:
+        #     aaaa = line[0].split()
+        #     return aaaa
 
         lines.append(a)
     print("[*]Has been sent.\n")
@@ -47,8 +57,8 @@ def getInput():
 
 
 openai.api_key = getKeyFromConfig()
-# messages = [{"role": "system", "content": Jarvis.role.role_1}]
-messages = [{"role": "system", "content": global_role}]
+# # messages = [{"role": "system", "content": Jarvis.role.role_1}]
+# messages = [{"role": "system", "content": global_role}]
 filePath= r"C:/Users/" + getpass.getuser()+"/Jarvis_log/"
 
 
@@ -64,15 +74,19 @@ def mainLoop():
     try:
         while True:
             user_input = getInput()
+            # user_input = input("\033[32m>\033[0m ")
+            # user_input = 
             if user_input[0] =='/':
-                changerole(user_input)
+                command(user_input)
             else:
                 fileName = str(datetime.datetime.now())[0:10]+'.txt'
                 pathAndFile = filePath+fileName
                 writeLogInfo(pathAndFile,user_input,"Q")
-
-                messages.append({"role": "user", "content": user_input})
-                response = sendMessage(messages)
+                # print(alldata.messag/es)
+                # messages = 
+                alldata.messages.append({"role": "user", "content": user_input})
+                # print(alldata.messages)
+                response = sendMessage(alldata.messages)
 
                 writeLogInfo(pathAndFile,response,"A")
                 print(f"\033[34mJarvis>\033[0m {response}\n")
@@ -91,36 +105,43 @@ def showHelpInfo():
         print("1. You are ChatGPT, a large language model....")
         print("2. bypass openai ")
 
-def changerole(user_input):
+
+
+
+
     # match user_input[]
     pass
-def test(a):
-    if a[0]=='/':
-        match a[1:]:
-            case "aaab":
-                global_role = role.role_2
-            case "bbbc":
-                global_role = role.role_1
-            case _:
-                global_role = "no this role"
-        while global_role == "no this role":
-            print(global_role+", re inpuut")
-            match a[1:]:
-                case "aaab":
-                    global_role = role.role_2
-                case "bbbc":
-                    global_role = role.role_1
-                case _:
-                    global_role = "no this role"
-                # pass
-        print(global_role)
+# def test(a):
+#     if a[0]=='/':
+#         match a[1:]:
+#             case "changerole":
+#                 global_role = role.role[2]
+#             case "list":
+#                 global_role = role.role[1]
+#             case _:
+#                 global_role = "normal" # normal
+        # while global_role == "no this role":
+        #     print(global_role+", re inpuut")
+        #     match a[1:]:
+        #         case "aaab":
+        #             global_role = role.role_2
+        #         case "bbbc":
+        #             global_role = role.role_1
+        #         case _:
+        #             global_role = "no this role"
+        #         # pass
+        # print(global_role)
     pass
 def main():
-    a = getInput()
-    test(a)
-    # showInterface()
-    # showHelpInfo()
-    # mainLoop()
+    # a = getInput()
+    # test(a)
+    showInterface()
+    showHelpInfo()
+    mainLoop()
+    # print(alldata.global_role)
+    # alldata.changeRole("hello")
+    # print(alldata.global_role)
+    
 
 if __name__ == '__main__':
     main()

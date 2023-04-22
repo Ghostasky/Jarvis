@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="Jarvis-gpt",
-    version="0.1",
+    version="0.4.0",
     packages=["Jarvis"],
     author="Ghostasky",
     author_email="ghostasky@foxmail.com",

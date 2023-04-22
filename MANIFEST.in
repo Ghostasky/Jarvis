@@ -1,1 +1,1 @@
-include Jarvis/config.txt
+include Jarvis/static/*
