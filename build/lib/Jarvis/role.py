@@ -10,3 +10,4 @@ f = open(path,'r',encoding='utf-8')
 # with open(path,'r',encoding="utf-8") as f:
 roleAndPrompt = json.load(f)
 f.close()
+
