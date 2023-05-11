@@ -117,7 +117,10 @@ def showHistoryUseage():
     #     total += usage
     #     print("日期：", str(dt_object)[:10], " 使用量(美分)：", usage,dt_object.month)
     dollar = total / 100
-    print(f"本月总使用量：${dollar:.4f}")
+    print(f"本月总使用量：\t${dollar:.4f}")
+    balance = hard_limit - dollar
+    print(f"本月余额：\t${balance:.4f}")
+    print(f"限额：\t\t${hard_limit:.4f}")
     pass
 
 

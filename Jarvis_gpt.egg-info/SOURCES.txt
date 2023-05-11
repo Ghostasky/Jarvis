@@ -8,6 +8,7 @@ Jarvis/getKey.py
 Jarvis/jarvis.py
 Jarvis/log.py
 Jarvis/role.py
+Jarvis/tempCodeRunnerFile.py
 Jarvis/static/config.txt
 Jarvis/static/role.json
 Jarvis_gpt.egg-info/PKG-INFO
