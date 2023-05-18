@@ -7,6 +7,8 @@ class allData():
     def __init__(self) :
         self.global_role =role.roleAndPrompt[0]["prompt"]
         self.messages = [{"role": "system", "content": self.global_role}]
+        self.messages.append({"role": "user", "content": ""})
+
         pass
 
 
