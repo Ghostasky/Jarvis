@@ -8,7 +8,6 @@ Jarvis/getKey.py
 Jarvis/jarvis.py
 Jarvis/log.py
 Jarvis/role.py
-Jarvis/stream.py
 Jarvis/tempCodeRunnerFile.py
 Jarvis/static/config.txt
 Jarvis/static/role.json

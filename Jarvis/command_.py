@@ -3,8 +3,10 @@ from distutils.sysconfig import get_python_lib
 import prettytable as pt
 import json
 import requests
-import getpass 
+import getpass
 import datetime
+import os
+
 # 本地
 # from allData import alldata
 # from role import roleAndPrompt
@@ -18,12 +20,13 @@ from Jarvis.role import roleAndPrompt
 LIMIT_URL = "https://api.openai.com/dashboard/billing/subscription"
 USAGE_URL = "https://api.openai.com/dashboard/billing/usage"
 
+
 def command(user_input):
     user_input_temp = user_input.split(" ")
     match user_input_temp[0]:
         case "/list" | "/?" | "/help":
             showAllCommand()
-        case "/change_role"| "/cr":
+        case "/change_role" | "/cr":
             # temp = user_input.split(" ")[]
             if len(user_input_temp) != 2:
                 print("缺参数")
@@ -33,53 +36,62 @@ def command(user_input):
         case "/list_role" | "/lr":
             showAllRole()
         case "/hisuse" | "/hu":
-            showHistoryUseage();
-            pass
+            showHistoryUseage()
+        case "/cls":
+            os.system("cls")
         case _:
             print("no this command, please input again.")
 
+
 def showAllCommand():
-    print('''Here are all command: 
+    print(
+        """Here are all command: 
     /list : show all command.
     /change_role : change the prompt
     /list_role : show all prompt
     /hisuse : show history usage
-    ''')
+    """
+    )
     pass
+
 
 def changeRole(number):
     number = int(number)
-    print(number,type(number))
-    
+    print(number, type(number))
+
     # alldata.changeRole(roleAndPrompt[number+1]["prompt"])
-    alldata.messages = [{"role": "system", "content": roleAndPrompt[number-1]["prompt"]}]
-    print("[*] already change: "+ roleAndPrompt[number-1]["act"])
+    alldata.messages = [
+        {"role": "system", "content": roleAndPrompt[number - 1]["prompt"]}
+    ]
+    print("[*] already change: " + roleAndPrompt[number - 1]["act"])
     # print(alldata.messages)
     pass
 
+
 def showAllRole():
-    path = r"" + get_python_lib() +"\Jarvis\\static\\role.json"
-    with open(path,'r',encoding="utf-8") as f:
+    path = r"" + get_python_lib() + "\Jarvis\\static\\role.json"
+    with open(path, "r", encoding="utf-8") as f:
         jsonstr = json.load(f)
     i = 1
     tb = pt.PrettyTable()
     tb.field_names = ["Number", "Act", "Prompt"]
     for eachRole in jsonstr:
-        prompt = eachRole["prompt"].split('\n')[0]
+        prompt = eachRole["prompt"].split("\n")[0]
         # print(i," ", eachRole["act"]+":"+prompt[:40]+"...")
         # print('{0:30} ==== {0:10}'.format(eachRole["act"],prompt[:40]) )
         # print(i,eachRole["act"].ljust(20,chr(12288))," === ",prompt[:50].rjust(30,chr(12288)),"...")
-        tb.add_row([i,eachRole["act"], prompt[:33]+"..."])
-        i+=1
+        tb.add_row([i, eachRole["act"], prompt[:33] + "..."])
+        i += 1
     # tb.set_style(pt.RANDOM)
-    tb.align = 'l'
+    tb.align = "l"
     print(tb)
 
+
 def showHistoryUseage():
-    apiFile =r"C:/Users/" + getpass.getuser()+"/Jarvis_log/"+"config.txt"
+    apiFile = r"C:/Users/" + getpass.getuser() + "/Jarvis_log/" + "config.txt"
     # print(apiFile)
-    with open(apiFile,'r',encoding="utf-8") as f:
-        key =f.read()
+    with open(apiFile, "r", encoding="utf-8") as f:
+        key = f.read()
         # print(key)
     end_date = datetime.date.today()
     start_date = end_date - datetime.timedelta(days=90)
@@ -95,19 +107,24 @@ def showHistoryUseage():
     month = now.strftime("%m")
     total = 0
     result = []
-    for cost in data['daily_costs']:
-        timestamp = cost['timestamp']
+    for cost in data["daily_costs"]:
+        timestamp = cost["timestamp"]
         date = datetime.datetime.fromtimestamp(timestamp)
         if date.month == int(month):
             result.append(cost)
-    
+
     for i in result:
         usage = 0
-        lineitem_ = i['line_items']
+        lineitem_ = i["line_items"]
         for j in lineitem_:
-            usage += j['cost']
-        total+=usage
-        print("日期：", str(datetime.datetime.fromtimestamp(i['timestamp']))[:10], " 使用量(美分)：", usage)
+            usage += j["cost"]
+        total += usage
+        print(
+            "日期：",
+            str(datetime.datetime.fromtimestamp(i["timestamp"]))[:10],
+            " 使用量(美分)：",
+            usage,
+        )
 
     # for i in range(len(line_items)):
     #     usage = 0
@@ -140,5 +157,6 @@ def make_request(api_key, url, params=None):
         exit(1)
 
     return json.loads(response.content.decode("utf-8"))
+
 
 # showHistoryUseage()
