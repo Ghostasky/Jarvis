@@ -1,1 +1,3 @@
 include Jarvis/static/*
+
+include google.config
