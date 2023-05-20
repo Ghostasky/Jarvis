@@ -16,7 +16,13 @@ def getGoogle():
 
 bard = Bard(token=getGoogle())
 
-text = "please connect internet ,and tell me what is this github pro talk about ? : 'https://github.com/GoSSIP-SJTU/GoSSIP_Blog'"
+text = """
+던파모바일 & 스파이 패밀리 콜라보!
+
+지금 던파모바일에서
+스파이 패밀리처럼 꾸미고,
+자신만의 결투를 펼쳐보세요!
+"""
 print("问题:")
 print("\t原文:", text)
 while True:
